@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moda Sport - Carrito de compras.</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/31f6832015.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <header id="header">
+
+    </header>
+
+    <main style="margin-top: 100px !important">
+        <section class="cart_detail h-100 my-5">
+            <div class="container">
+                <h1 class="text-center mt-2"> Carrito de compras </h1>
+                <div class="items d-flex flex-column w-100 g-1 p-1" id="itemsList">
+
+
+                </div>
+
+                <hr>
+                <!-- <form class="form mt-2"> -->
+                    <div class="cupon d-flex flex-column align-items-end">
+                        <p><strong>¿Tienes un cupón?</strong></p>
+                        <div class="form-coupon d-flex flex-row justify-content-end w-50">
+                            <input type="text" class="form-control mx-2" id="inputCoupon" placeholder="Codigo del cupón" id="inputCoupon">
+                            <button class="btn btn-success btn-sm" type="button" id="btnRedeemCoupon">
+                                APLICAR
+                            </button>
+                        </div>
+                        <div class="viewCoupon d-flex flex-row justify-content-end m-2 w-50" id="viewCoupon">
+                            
+                        </div>
+
+                    </div>
+                <!-- </form> -->
+                <hr>
+
+                <div class="totales w-100 d-flex flex-column mt-3" id="totals">
+                    <div class="cart_detail d-flex flex-row justify-content-between">
+                        <p> Sub Total </p>
+                        <p>$0.000</p>
+
+                    </div>
+                    <div class="cart_detail d-flex flex-row justify-content-between">
+                        <p> Descuento </p>
+                        <p>0 %</p>
+
+                    </div>
+                    <div class="cart_detail d-flex flex-row justify-content-between mt-2">
+                        <h2> Total </h2>
+                        <h2>$0.000</h2>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 p-4">
+                    <button class="btn btn-success" type="button">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        PAGAR
+                    </button>
+                </div>
+
+                <div class="form-edit">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" id="shoppingCartModal">
+                            <!-- <div class="modal-content" >
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar item</h5>
+                                    <button type="button" id="btnCloseModal" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="bg-light p-3" id="formCategory">
+                                        <div class="mb-3">
+                                            <label for="inputQuantity" class="form-label">Cantidad:</label>
+                                            
+                                            <div id="QuantityHelp" class="form-text">Cantidad de productos a comprar.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="inputColor" class="form-label">Color:</label>
+                                            
+                                            <div id="ColorHelp" class="form-text">Color del producto a comprar.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="inputSize" class="form-label">Talla:</label>
+                                             
+                                            <div id="SizeHelp" class="form-text">Talla del producto a comprar.
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-warning" id="btnFormUpdate">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            Actualizar
+                                        </button>
+                                        <button class="btn btn-danger" id="btnFormCancel" data-bs-dismiss="modal">
+                                            <i class="fa-solid fa-x"></i>
+                                            Cancelar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-dark text-light w-100" id="footer">
+
+    </footer>
+
+    <script src="./js/config.js"></script>
+    <script src="./js/components/menuClient.js"></script>
+    <script src="./js/components/footer.js"></script>
+    <script src="./js/controllers/shoppingCart.js"></script>
+    <script src="./js/controllers/login.js"></script>
+
+    <script>
+        createShoppingCartHTML();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
