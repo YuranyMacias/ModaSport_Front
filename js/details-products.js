@@ -156,7 +156,6 @@ const detailsProduct = async (objectId) => {
                             <p>${product.description} </p>
                         </div>
                     </div>
-
            `;
 
 

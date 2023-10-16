@@ -1,7 +1,7 @@
 const shoppingCartNumber = document.getElementById('shoppingCartNumber');
 
 function saveIdShoppingCart(id) {
-    localStorage.setItem('idShoppingCart', JSON.stringify(id));
+    localStorage.setItem('idShoppingCart', id);
 }
 
 function getIdShoppingCart() {
@@ -9,15 +9,28 @@ function getIdShoppingCart() {
     if (!idShoppingCart) {
         return false;
     }
-    return JSON.parse(idShoppingCart);
+    return idShoppingCart;
 }
 
 const getShoppingCarts = async () => {
     try {
+        const idShoppingCart = getIdShoppingCart();
+        if (idShoppingCart) {
+            let response = await fetch(`${URL_API}/shopping-cart/${idShoppingCart}`);
+
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            if (data) {
+                return data;
+            }
+        }
+
         const optionalToken = getOptionalToken();
         if (optionalToken) {
-
-            const response = await fetch(`${URL_API}/shopping-cart/ByUser`, {
+            const response = await fetch(`${URL_API}/shopping-cart/find/ByUser`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,19 +46,6 @@ const getShoppingCarts = async () => {
             return data;
         }
 
-        const idShoppingCart = getIdShoppingCart();
-        if (idShoppingCart) {
-            let response = await fetch(`${URL_API}/shopping-cart/${idShoppingCart}`);
-
-            if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            return data;
-        }
-
-
         return null;
 
     } catch (error) {
@@ -58,7 +58,14 @@ const getNumberItems = async () => {
     getShoppingCarts()
         .then(data => {
             if (data) {
-                const { shoppingCart, details } = data;
+                let shoppingCart = [];
+                let details = [];
+
+                if (data?.shoppingCart && data?.details) {
+                    shoppingCart = data.shoppingCart;
+                    details = data.details;
+                }
+
                 const items = details.length;
 
                 if (items === 0) {
@@ -85,28 +92,9 @@ const createShoppingCart = async (productId, quantity = 1, color, size) => {
             }]
         };
 
-        const optionalToken = getOptionalToken();
-        if (optionalToken) {
-
-            const response = await fetch(`${URL_API}/shopping-cart`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-token': `${optionalToken}`
-                },
-                body: JSON.stringify(data)
-            })
-
-            if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
-            }
-
-            const shoppingCart = await response.json();
-            window.location.href = '../../shopping-cart.html'
-            return shoppingCart;
-        }
-
         const idShoppingCart = getIdShoppingCart();
+        const optionalToken = getOptionalToken();
+
         if (idShoppingCart) {
             data.idShoppingCart = idShoppingCart;
             const response = await fetch(`${URL_API}/shopping-cart-details/${idShoppingCart}`, {
@@ -122,7 +110,27 @@ const createShoppingCart = async (productId, quantity = 1, color, size) => {
             }
 
             const shoppingCart = await response.json();
-            console.log(shoppingCart);
+
+            window.location.href = '../../shopping-cart.html'
+            return shoppingCart;
+        }
+
+
+        if (optionalToken) {
+            const response = await fetch(`${URL_API}/shopping-cart`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-token': `${optionalToken}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+            }
+
+            const shoppingCart = await response.json();
             window.location.href = '../../shopping-cart.html'
             return shoppingCart;
         }
@@ -143,8 +151,6 @@ const createShoppingCart = async (productId, quantity = 1, color, size) => {
         saveIdShoppingCart(shoppingCart.shoppingCart._id);
         window.location.href = '../../shopping-cart.html'
         return shoppingCart;
-
-
 
         return null;
 
@@ -504,7 +510,7 @@ const createShoppingCartHTML = () => {
                 const viewCoupon = document.getElementById('viewCoupon');
 
                 const itemCoupon = `
-                        <p class="m-2"><strong>Cupón:</strong> ${ shoppingCart[0].coupon.code } </p>
+                        <p class="m-2"><strong>Cupón:</strong> ${shoppingCart[0].coupon.code} </p>
                         <button class="btn btn-danger btn-sm m-1" title="Eliminar cupón" id="btnRemoveCoupon">
                             <i class="fa-solid fa-x"></i>
                         </button>
@@ -526,7 +532,8 @@ const createShoppingCartHTML = () => {
                     <div class="item border row row-cols-1 p-1 my-1">
                         <div class="col-4 col-sm-2 d-flex align-items-center">
                             <div class="ratio ratio-1x1 ">
-                                <img src="${item.product.images[0]}" class="img-fluid rounded-start" alt="${item.product.name}">
+                                <img src="${(item?.product?.images[0]) ? item.product.images[0] : `../assets/img/logo.png`}" 
+                                class="img-fluid rounded-start" alt="${(item?.product?.name) ? item.product.name : `Imagen no disponible.`}"}">
                             </div>
                         </div>
 
@@ -631,8 +638,8 @@ const removeCoupon = async (couponCode) => {
         const idShoppingCart = getIdShoppingCart();
         if (idShoppingCart) {
 
-            console.log({couponCode})
-            console.log({idShoppingCart})
+            console.log({ couponCode })
+            console.log({ idShoppingCart })
 
             const response = await fetch(`${URL_API}/coupons/remove/${couponCode}`, {
                 method: 'DELETE',

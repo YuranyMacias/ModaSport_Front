@@ -71,6 +71,52 @@ divcontent.innerHTML = dataDescription;
 main.appendChild(divcontent);
 
 
+// ------------------------- 
+const validateShoppingCart = async () => {
+    const idShoppingCart = getIdShoppingCart();
+    const optionalToken = getOptionalToken();
+
+    if (optionalToken && idShoppingCart) {
+        const response = await fetch(`${URL_API}/shopping-cart/${idShoppingCart}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': `${optionalToken}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    }
+    
+    if (!idShoppingCart) {
+        const response = await fetch(`${URL_API}/shopping-cart/find/ByUser`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': `${optionalToken}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const shoppingCartId = data?.shoppingCart?.[0]?._id;
+        if (shoppingCartId) {
+            saveIdShoppingCart(shoppingCartId)
+        }
+        return data;
+    }
+    return null;
+}
+
+
 
 // ------------------------- 
 const inputEmail = document.getElementById('floatingInpuEmail');
@@ -94,7 +140,7 @@ const validateLogin = async () => {
         });
 
         const session = await response.json();
-       
+
         if (session?.message) {
             console.log(`Error:  ${session.message} .`);
             alert(`Error:  ${session.message} .`);
@@ -111,10 +157,12 @@ const validateLogin = async () => {
 
         if (session?.user?.role === "ADMIN_ROLE") {
             console.log(session?.user?.role)
-            window.location.href = './reports'
+            validateShoppingCart();
+            // window.location.href = './reports'
         } else if (session?.user?.role === "USER_ROLE") {
             console.log(session?.user?.role)
-            window.location.href = './orders'
+            validateShoppingCart();
+            // window.location.href = './orders'
         }
 
         console.log(session);
