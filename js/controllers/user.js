@@ -25,28 +25,6 @@ const getUsers = async () => {
     }
 }
 
-const validatePasswordMatch = () => {
-    const inputPassword = document.getElementById('inputPassword');
-    const inputConfirmPassword = document.getElementById('inputConfirmPassword');
-
-    inputConfirmPassword.addEventListener('keyup', () => {
-        if (inputPassword.value === inputConfirmPassword.value) {
-            inputConfirmPassword.classList.add('form-control-success');
-            inputConfirmPassword.classList.remove('form-control-warning');
-        } else {
-            inputConfirmPassword.classList.add('form-control-warning');
-            inputConfirmPassword.classList.remove('form-control-success');
-        }
-    })
-}
-
-const isPasswordMatch = () => {
-    const inputPassword = document.getElementById('inputPassword').value;
-    const inputConfirmPassword = document.getElementById('inputConfirmPassword').value;
-
-    return Boolean(inputPassword != '' && inputPassword === inputConfirmPassword)
-}
-
 const createUser = async () => {
     try {
         const inputName = document.getElementById('inputName').value;
@@ -57,7 +35,7 @@ const createUser = async () => {
         const selectRole = document.getElementById('selectRole').value;
 
         if (!isPasswordMatch()) {
-            alert('Por favor! verificar Clave, es incorrecta')
+            alert('Por favor! verificar Clave, es incorrecta, no coinciden!')
             return;
         }
 
@@ -290,7 +268,6 @@ const createActionsBtns = () => {
         updateUser(objectId);
     })
 
-    validatePasswordMatch();
 }
 
 const createDataTable = () => {

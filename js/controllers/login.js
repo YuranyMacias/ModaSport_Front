@@ -123,12 +123,15 @@ const inputEmail = document.getElementById('floatingInpuEmail');
 const inputPassword = document.getElementById('floatingInputPassword');
 
 
-const validateLogin = async () => {
+const validateLogin = async (emailValue = '', passwordValue = '') => {
     try {
 
+        const email = (emailValue !== '') ? emailValue : inputEmail.value;
+        const password = (passwordValue !== '') ? passwordValue : inputPassword.value;
+
         const data = {
-            email: inputEmail.value,
-            password: inputPassword.value
+            email,
+            password
         };
 
         const response = await fetch(`${URL_API}/auth/login`, {
