@@ -57,7 +57,7 @@ let dataDescription = `
                             </div>
                         </div>
                         <div class="col col-md-5 d-flex d-none d-md-flex align-items-start">
-                            <img src="assets/images/login.jpg" width="100%" class="card-img-top" alt="..." >
+                            <img src="./assets/images/login.webp" width="100%" class="card-img-top" alt="..."  >
                         </div>
                     </div>
 
