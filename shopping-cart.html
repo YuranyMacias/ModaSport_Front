@@ -28,19 +28,20 @@
 
                 <hr>
                 <!-- <form class="form mt-2"> -->
-                    <div class="cupon d-flex flex-column align-items-end">
-                        <p><strong>¿Tienes un cupón?</strong></p>
-                        <div class="form-coupon d-flex flex-row justify-content-end w-50">
-                            <input type="text" class="form-control mx-2" id="inputCoupon" placeholder="Codigo del cupón" id="inputCoupon">
-                            <button class="btn btn-success btn-sm" type="button" id="btnRedeemCoupon">
-                                APLICAR
-                            </button>
-                        </div>
-                        <div class="viewCoupon d-flex flex-row justify-content-end m-2 w-50" id="viewCoupon">
-                            
-                        </div>
+                <div class="cupon d-flex flex-column align-items-end">
+                    <p><strong>¿Tienes un cupón?</strong></p>
+                    <div class="form-coupon d-flex flex-row justify-content-end w-50">
+                        <input type="text" class="form-control mx-2" id="inputCoupon" placeholder="Codigo del cupón"
+                            id="inputCoupon">
+                        <button class="btn btn-success btn-sm" type="button" id="btnRedeemCoupon">
+                            APLICAR
+                        </button>
+                    </div>
+                    <div class="viewCoupon d-flex flex-row justify-content-end m-2 w-50" id="viewCoupon">
 
                     </div>
+
+                </div>
                 <!-- </form> -->
                 <hr>
 
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 p-4">
-                    <button class="btn btn-success" type="button">
+                    <button class="btn btn-success w-100" type="button" id="btnPay">
                         <i class="fa-solid fa-dollar-sign"></i>
                         PAGAR
                     </button>
@@ -71,43 +72,7 @@
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" id="shoppingCartModal">
-                            <!-- <div class="modal-content" >
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Editar item</h5>
-                                    <button type="button" id="btnCloseModal" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="bg-light p-3" id="formCategory">
-                                        <div class="mb-3">
-                                            <label for="inputQuantity" class="form-label">Cantidad:</label>
-                                            
-                                            <div id="QuantityHelp" class="form-text">Cantidad de productos a comprar.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="inputColor" class="form-label">Color:</label>
-                                            
-                                            <div id="ColorHelp" class="form-text">Color del producto a comprar.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="inputSize" class="form-label">Talla:</label>
-                                             
-                                            <div id="SizeHelp" class="form-text">Talla del producto a comprar.
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-warning" id="btnFormUpdate">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                            Actualizar
-                                        </button>
-                                        <button class="btn btn-danger" id="btnFormCancel" data-bs-dismiss="modal">
-                                            <i class="fa-solid fa-x"></i>
-                                            Cancelar
-                                        </button>
-                                    </form>
-                                </div>
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -126,6 +91,7 @@
     <script src="./js/components/footer.js"></script>
     <script src="./js/controllers/shoppingCart.js"></script>
     <script src="./js/controllers/login.js"></script>
+    <script src="./js/components/btnDropUser.js"></script>
 
     <script>
         createShoppingCartHTML();

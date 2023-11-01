@@ -125,17 +125,22 @@ const menuClient = () => {
                         </span>
                     </button>
 
-                    <div class="btn-group" role="group">
+                    <div class="btn-group" role="group" id="btnDropUser">
                         <button id="btnGroupDrop1" data-bs-toggle="dropdown" aria-expanded="false"
                             type="button" class="btn btn-outline-success d-block dropdown-toggle" aria-label="Botón de inicio de sesión"
                             title="Inicio de sesión">
-                            <i class="fa-solid fa-user"></i>
+                            
+                            <img src="../assets/images/user2.png" width="25" height="25" alt="" >
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="left: -60px;" >
+
                             <li>
                                 <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                     data-bs-target="#modalLogin">Iniciar sesión</a>
                             </li>
+                            
+                            
+                        
                         </ul>
                     </div>
 

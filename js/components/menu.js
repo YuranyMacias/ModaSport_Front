@@ -61,7 +61,7 @@ const menuAdmin = () => {
                         </span>
                     </button>
 
-                    <div class="dropdown ml-1">
+                    <div class="btn-group" role="group" id="btnDropUser">
                         <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user"></i>

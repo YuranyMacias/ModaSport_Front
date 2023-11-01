@@ -57,7 +57,7 @@ let dataDescription = `
                             </div>
                         </div>
                         <div class="col col-md-5 d-flex d-none d-md-flex align-items-start">
-                            <img src="./assets/images/login.webp" width="100%" class="card-img-top" alt="..."  >
+                            <img src="/assets/images/login.webp" width="100%" class="card-img-top" alt="..."  >
                         </div>
                     </div>
 
@@ -158,14 +158,21 @@ const validateLogin = async (emailValue = '', passwordValue = '') => {
             saveToken(session.token)
         }
 
+        if (session?.user?.image?.trim() !== '') {
+            console.log(session.user.image);
+            saveImage(session.user.image)
+        }
+
         if (session?.user?.role === "ADMIN_ROLE") {
             console.log(session?.user?.role)
             validateShoppingCart();
-            // window.location.href = './reports'
-        } else if (session?.user?.role === "USER_ROLE") {
+            // window.location.href = '/reports'
+            location.reload()
+        } else if (session?.user?.role) {
             console.log(session?.user?.role)
             validateShoppingCart();
-            // window.location.href = './orders'
+            // window.location.href = './shopping-cart'
+            location.reload()
         }
 
         console.log(session);

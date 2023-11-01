@@ -1,13 +1,33 @@
-const URL_API = `https://moda-sport.vercel.app/api`;
-// const URL_API = `http://localhost:8080/api`;
+// const URL_API = `https://moda-sport.vercel.app/api`;
+const URL_API = `http://localhost:8080/api`;
+let btnLoginMenu;
 
-
-function saveToken(token) {
+const saveToken = (token) => {
     const tokenData = {
         token: token,
         fechaCreacion: Date.now() // Obtener el tiempo actual en milisegundos
     };
     localStorage.setItem('accessToken', JSON.stringify(tokenData));
+}
+
+const saveUserImage = (image) => {
+    localStorage.setItem('userImage', image);
+}
+
+const getUserImage = async () => {
+    const image = localStorage.getItem('userImage');
+    if (!isValidToken() || !image) {
+        return null;
+    }
+    return image;
+}
+
+const removeToken = () => {
+    localStorage.removeItem('accessToken');
+}
+
+const removeUserImage = () => {
+    localStorage.removeItem('userImage');
 }
 
 // Función para verificar si el token existe y si ha pasado menos de 4 horas
@@ -26,7 +46,8 @@ function isValidToken() {
     }
 
     // El token ha expirado, eliminarlo
-    localStorage.removeItem('miToken');
+    removeToken();
+    removeUserImage();
     return false;
 }
 
@@ -53,7 +74,8 @@ const login = async (email = "yeiimaccdev@gmail.com", password = 'yeiimaccdev_')
 
 const getToken = async () => {
     if (!isValidToken()) {
-        await login();
+        btnLoginMenu.click();
+        return null;
     }
     const tokenDataStr = localStorage.getItem('accessToken');
     const {token} = JSON.parse(tokenDataStr);
@@ -68,3 +90,7 @@ const getOptionalToken = () => {
     }
     return null;
 }
+
+window.addEventListener('load', function () { 
+    btnLoginMenu = document.getElementById('btnLogin');
+});

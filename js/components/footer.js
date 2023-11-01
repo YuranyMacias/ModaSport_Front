@@ -8,7 +8,7 @@ const footerClient = () => {
                 <div class="col-8 col-sm-3 logo d-flex flex-column align-items-center">
                     <hr class="w-100">
                     <figure class="ratio ratio-1x1">
-                        <img src="./assets/images/logoWhite300.png" alt="">
+                        <img src="/assets/images/logoWhite300.png" alt="">
                     </figure>
                 </div>
 

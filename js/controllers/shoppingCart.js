@@ -12,6 +12,10 @@ function getIdShoppingCart() {
     return idShoppingCart;
 }
 
+const removeIdShoppingCart = () => {
+    localStorage.removeItem('idShoppingCart');
+}
+
 const getShoppingCarts = async () => {
     try {
         const idShoppingCart = getIdShoppingCart();
@@ -130,9 +134,14 @@ const createShoppingCart = async (productId, quantity = 1, color, size) => {
                 throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
             }
 
-            const shoppingCart = await response.json();
-            window.location.href = '../../shopping-cart.html'
-            return shoppingCart;
+
+            const shopping = await response.json();
+            const shoppingCartId = shopping?.shoppingCart?._id;
+            if (shoppingCartId) {
+                saveIdShoppingCart(shoppingCartId)
+            }
+            // window.location.href = '../../shopping-cart.html'
+            return shopping;
         }
 
         const response = await fetch(`${URL_API}/shopping-cart?skipJWTValidation=true`, {
@@ -176,11 +185,11 @@ const updateItemShoppingCart = async (objectId) => {
                 size: selectSize
             }]
         };
-
+        const idShoppingCart = getIdShoppingCart();
         const optionalToken = getOptionalToken();
         if (optionalToken) {
 
-            const response = await fetch(`${URL_API}/shopping-cart`, {
+            const response = await fetch(`${URL_API}/shopping-cart-details/${idShoppingCart}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -198,7 +207,7 @@ const updateItemShoppingCart = async (objectId) => {
             return shoppingCart;
         }
 
-        const idShoppingCart = getIdShoppingCart();
+
         if (idShoppingCart) {
             data.idShoppingCart = idShoppingCart;
             const response = await fetch(`${URL_API}/shopping-cart-details/${idShoppingCart}`, {
@@ -214,7 +223,6 @@ const updateItemShoppingCart = async (objectId) => {
             }
 
             const shoppingCart = await response.json();
-            console.log(shoppingCart);
             window.location.href = '../../shopping-cart.html'
             return shoppingCart;
         }
@@ -237,9 +245,10 @@ const deleteItemShoppingCart = async (itemId) => {
             };
 
             const optionalToken = getOptionalToken();
+            const idShoppingCart = getIdShoppingCart();
             if (optionalToken) {
 
-                const response = await fetch(`${URL_API}/shopping-cart/`, {
+                const response = await fetch(`${URL_API}/shopping-cart-details/${idShoppingCart}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -256,8 +265,7 @@ const deleteItemShoppingCart = async (itemId) => {
                 location.reload();
                 return shoppingCart;
             }
-
-            const idShoppingCart = getIdShoppingCart();
+ 
             if (idShoppingCart) {
                 data.idShoppingCart = idShoppingCart;
                 const response = await fetch(`${URL_API}/shopping-cart-details/${idShoppingCart}`, {
@@ -273,7 +281,6 @@ const deleteItemShoppingCart = async (itemId) => {
                 }
 
                 const shoppingCart = await response.json();
-                console.log(shoppingCart);
                 location.reload();
                 return shoppingCart;
             }
@@ -329,7 +336,6 @@ const sizesSelectHtml = (sizes, size) => {
 
         select.appendChild(option);
     }
-    console.log(select.outerHTML)
 
     return select.outerHTML;
 };
@@ -362,15 +368,12 @@ const editItemShoppingCart = async (objectId) => {
 
         const responseItem = await fetch(`${URL_API}/shopping-cart-details/item/${objectId}`);
 
-        console.log(responseItem)
         if (!responseItem.ok) {
             throw new Error(`Error en la solicitud: ${responseItem.status} - ${responseItem.statusText}`);
         }
 
         let [details] = await responseItem.json();
         const { product } = details;
-        console.log(details)
-        console.log(product.stock)
 
 
         if (details) {
@@ -436,18 +439,29 @@ const editItemShoppingCart = async (objectId) => {
     }
 }
 
+const prepareOrder = async () => {
+    const token = await getToken();
+    if (token) {
+        console.log(token)
+        window.location.href = '/pre-order.html'
+    } else {
+        alert('Generar el login')
+        
+    }
+};
+
 const createActionsBtns = () => {
     const btnsEdit = document.querySelectorAll('.btnEdit');
     const btnsDelete = document.querySelectorAll('.btnDelete');
-
+    
     const btnRedeemCoupon = document.getElementById('btnRedeemCoupon');
+    const btnPay = document.getElementById('btnPay');
 
 
     btnsEdit.forEach((btnEdit) => {
         btnEdit.addEventListener('click', () => {
             let objectId = btnEdit.getAttribute('data-id');
             // btnFormUpdate.setAttribute("data-id", objectId);
-            console.log(objectId)
             editItemShoppingCart(objectId);
         })
     })
@@ -456,7 +470,6 @@ const createActionsBtns = () => {
     btnsDelete.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {
             let objectId = btnDelete.getAttribute('data-id');
-            console.log(objectId)
             deleteItemShoppingCart(objectId);
         })
     });
@@ -469,6 +482,10 @@ const createActionsBtns = () => {
             alert('Debe introducir el código para canjearlo.')
         }
     })
+
+    btnPay.addEventListener('click', () => {
+        prepareOrder();
+    })
 }
 
 const createShoppingCartHTML = () => {
@@ -478,7 +495,6 @@ const createShoppingCartHTML = () => {
 
     getShoppingCarts()
         .then(data => {
-            console.log(data)
             let shoppingCart = [];
             let details = [];
 
@@ -620,7 +636,6 @@ const redeemCoupon = async (inputCoupon) => {
             }
 
             const coupon = await response.json();
-            console.log(coupon);
             window.location.href = '../../shopping-cart.html'
             return coupon;
         }
@@ -638,9 +653,6 @@ const removeCoupon = async (couponCode) => {
         const idShoppingCart = getIdShoppingCart();
         if (idShoppingCart) {
 
-            console.log({ couponCode })
-            console.log({ idShoppingCart })
-
             const response = await fetch(`${URL_API}/coupons/remove/${couponCode}`, {
                 method: 'DELETE',
                 headers: {
@@ -653,7 +665,6 @@ const removeCoupon = async (couponCode) => {
             }
 
             const coupon = await response.json();
-            console.log(coupon);
             window.location.href = '../../shopping-cart.html'
             return coupon;
         }
