@@ -30,28 +30,27 @@ const menuAdmin = () => {
                     </ul>
 
                     <button type="button" class="btn btn-outline-success m-1 position-relative"
-                        aria-label="Botón carrito de compras" title="Carrito de compras">
+                        aria-label="Botón carrito de compras" title="Carrito de compras" onclick="goToShoppingCart()">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger" id="shoppingCartNumber">
-                            2
+                            0
                             <span class="visually-hidden">Number of items</span>
                         </span>
                     </button>
 
                     <div class="btn-group" role="group" id="btnDropUser">
-                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
-                            Usuario
+                        <button id="btnGroupDrop1" data-bs-toggle="dropdown" aria-expanded="false"
+                            type="button" class="btn btn-outline-success d-block dropdown-toggle" aria-label="Botón de inicio de sesión"
+                            title="Inicio de sesión">
+                            
+                            <img src="/assets/images/user2.png" width="25" height="25" alt="" >
                         </button>
-                        <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Test Test22</a></li>
-                            <li><a class="dropdown-item" href="#">Administrador</a></li>
-                            <li><a class="dropdown-item" href="#">Configuración</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="left: -60px;" >
+
+                            
+                            
+                            
+                        
                         </ul>
                     </div>
 

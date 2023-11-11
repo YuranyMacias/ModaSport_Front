@@ -12,8 +12,6 @@
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/31f6832015.js" crossorigin="anonymous"></script>
 
-    <script src="../js/config.js"></script>
-
 
 </head>
 
@@ -191,18 +189,19 @@
                                                 <div id="sizesHelp" class="form-text">
                                                     Ingresar una Talla y digitar coma ',' para agregar la siguiente.
                                                 </div>
-                                                <div id="sizesList" >
-                                                     -
+                                                <div id="sizesList">
+                                                    -
                                                 </div>
                                                 <hr>
                                                 <label for="inputColors" class="form-label">Colores:</label>
                                                 <input type="text" class="form-control" id="inputColors"
-                                                    aria-describedby="colorsHelp" placeholder="Ejemplo: Negro/Blanco" value="">
+                                                    aria-describedby="colorsHelp" placeholder="Ejemplo: Negro/Blanco"
+                                                    value="">
                                                 <div id="colorsHelp" class="form-text">
                                                     Ingresar un Color y digitar coma ',' para agregar la siguiente.
                                                 </div>
-                                                <div id="colorsList" >
-                                                    - 
+                                                <div id="colorsList">
+                                                    -
                                                 </div>
                                                 <hr>
 
@@ -276,7 +275,7 @@
                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="bg-light p-3" id="formImagesProduct"  enctype="multipart/form-data">
+                                        <form class="bg-light p-3" id="formImagesProduct" enctype="multipart/form-data">
                                             <div class="mb-3">
 
                                                 <label for="inputImages" class="form-label">Imagenes:</label>
@@ -313,7 +312,19 @@
 
     </main>
 
+    <footer class="bg-dark text-light w-100" id="footer">
+
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/validations/validationsUserLogged .js"></script>
     <script src="../js/components/menu.js"></script>
+    <script src="../js/components/footer.js"></script>
+    <script src="../js/controllers/shoppingCart.js"></script>
+    <script src="../js/controllers/login.js"></script>
+    <script src="../js/components/btnDropUser.js"></script>
+
+    <script src="../js/controllers/product.js"></script>
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -323,7 +334,7 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
 
-    <script src="../js/controllers/product.js"></script>
+
 
 </body>
 

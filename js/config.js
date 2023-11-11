@@ -74,6 +74,7 @@ const login = async (email = "yeiimaccdev@gmail.com", password = 'yeiimaccdev_')
 
 const getToken = async () => {
     if (!isValidToken()) {
+        console.log(btnLoginMenu)
         btnLoginMenu.click();
         return null;
     }

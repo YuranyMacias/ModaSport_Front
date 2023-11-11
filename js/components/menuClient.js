@@ -134,10 +134,7 @@ const menuClient = () => {
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="left: -60px;" >
 
-                            <li>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#modalLogin">Iniciar sesión</a>
-                            </li>
+                            
                             
                             
                         

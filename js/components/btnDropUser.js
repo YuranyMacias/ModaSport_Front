@@ -2,7 +2,6 @@ const createbtnDropUser = async () => {
     const menuDropUser = document.getElementById('btnDropUser');
     menuDropUser.innerHTML = '';
 
-
     const imgUser = await getUserImage();
     console.log(imgUser)
 
@@ -14,7 +13,7 @@ const createbtnDropUser = async () => {
         </button>
         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="left: -60px;" > 
             <li><a class="dropdown-item" href="#">Perfil</a></li>
-            <li><a class="dropdown-item" href="#">Pedidos</a></li>
+            <li><a class="dropdown-item" href="/orders/">Pedidos</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
@@ -36,17 +35,13 @@ const createbtnDropUser = async () => {
         </ul>
     `;
 
-
-    
-    const tokenValid = isValidToken()
+    const tokenValid = await isValidToken();
     if (tokenValid) {
         menuDropUser.innerHTML = btnUser;
         actionsUser();
     } else {
         menuDropUser.innerHTML = btnGuest;
-    }
-
-    
+    } 
 }
 
 const actionsUser = () => {
@@ -56,7 +51,7 @@ const actionsUser = () => {
         removeToken();
         removeUserImage();
 
-        window.location.href = '../../index.html'
+        window.location.href = '/index.html'
     })
 }
 

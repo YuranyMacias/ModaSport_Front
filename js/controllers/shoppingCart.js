@@ -450,7 +450,7 @@ const prepareOrder = async () => {
     }
 };
 
-const createActionsBtns = () => {
+const createActionsBtnsShoppingCart = () => {
     const btnsEdit = document.querySelectorAll('.btnEdit');
     const btnsDelete = document.querySelectorAll('.btnDelete');
     
@@ -604,7 +604,7 @@ const createShoppingCartHTML = () => {
 
                 totals.innerHTML = totalsHtml;
 
-                createActionsBtns();
+                createActionsBtnsShoppingCart();
 
             } else {
                 console.log('No se pudieron obtener items del carrito.');
