@@ -115,8 +115,37 @@ const methodPaypal = () => {
     console.log('PayPal')
 }
 
-const methodMercadoPago = () => {
+const methodMercadoPago = async () => {
     console.log('MercadoPago')
+    try {
+        const data = {
+            idOrder: "653f284029bee2cc69ec0f69",
+            paymentType: "mercadoPago"
+        }
+
+        const token = await getToken();
+        if (token) {
+            const response = await fetch(`${URL_API}/payments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-token': `${token}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+            }
+
+
+            const dataOrder = await response.json();
+            console.log(dataOrder)
+            return dataOrder;
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const methodCash = async (itemsOrder, code) => {
