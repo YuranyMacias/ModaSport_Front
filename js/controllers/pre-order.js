@@ -125,14 +125,14 @@ const methodMercadoPago = async () => {
 
         const token = await getToken();
         if (token) {
-            const response = await fetch(`${URL_API}/payments`, {
+            const response = await fetch(`${URL_API}/create-order`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-token': `${token}`
                 },
                 body: JSON.stringify(data)
-            });
+            }); 
 
             if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
