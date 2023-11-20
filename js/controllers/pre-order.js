@@ -125,7 +125,7 @@ const methodMercadoPago = async () => {
 
         const token = await getToken();
         if (token) {
-            const response = await fetch(`${URL_API}/create-order`, {
+            const response = await fetch(`${URL_API}/payments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
