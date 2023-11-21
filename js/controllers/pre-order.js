@@ -115,34 +115,87 @@ const methodPaypal = () => {
     console.log('PayPal')
 }
 
-const methodMercadoPago = async () => {
+const methodMercadoPago = async (itemsOrder, code) => {
     console.log('MercadoPago')
+    let orderId = '';
     try {
-        const data = {
-            idOrder: "653f284029bee2cc69ec0f69",
-            paymentType: "mercadoPago"
-        }
-
         const token = await getToken();
-        if (token) {
-            const response = await fetch(`${URL_API}/payments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-token': `${token}`
-                },
-                body: JSON.stringify(data)
-            }); 
 
-            if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+        if (itemsOrder.length > 0) {
+            const data = {
+                products: itemsOrder
+            }
+
+            if (code) {
+                data.code = code;
+            }
+
+            console.log(data)
+
+            if (token) {
+                const response = await fetch(`${URL_API}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': `${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+                }
+
+
+                const dataOrder = await response.json();
+                console.log(dataOrder)
+                console.log(dataOrder?.order?._id)
+                orderId = dataOrder?.order?._id;
             }
 
 
-            const dataOrder = await response.json();
-            console.log(dataOrder)
-            return dataOrder;
+
+
+
+            const dataM = {
+                idOrder: orderId,
+                paymentType: "mercadoPago"
+            }
+
+            if (token) {
+                const response = await fetch(`${URL_API}/payments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': `${token}`
+                    },
+                    body: JSON.stringify(dataM)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+                }
+
+
+                const dataOrder = await response.json();
+                console.log(dataOrder)
+                console.log(dataOrder.paymentDetail.init_point)
+                // window.location.href = dataOrder.init_point;
+                window.open(dataOrder.paymentDetail.init_point, '_blank');
+                return dataOrder;
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
     } catch (error) {
         console.log(error)
     }
@@ -211,10 +264,10 @@ const generateOrder = async (methodPayment = '') => {
 
     switch (methodPayment) {
         case 'PayPal':
-            methodPaypal();
+            methodPaypal(itemsOrder, code);
             break;
         case 'MercadoPago':
-            methodMercadoPago();
+            methodMercadoPago(itemsOrder, code);
             break;
         case 'Cash':
             methodCash(itemsOrder, code);
