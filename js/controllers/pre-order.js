@@ -1,12 +1,9 @@
-const btnPayPal = document.getElementById('btnPayPal');
+
 const btnMercadoPago = document.getElementById('btnMercadoPago');
 const btnCash = document.getElementById('btnCash');
 
 
-btnPayPal.addEventListener('click', () => {
-    console.log('btnPayPal')
-    generateOrder('PayPal')
-})
+
 
 btnMercadoPago.addEventListener('click', () => {
     console.log('btnMercadoPago')
