@@ -146,7 +146,7 @@ const validateLogin = async (emailValue = '', passwordValue = '') => {
 
         if (session?.message) {
             console.log(`Error:  ${session.message} .`);
-            alert(`Error:  ${session.message} .`);
+            alert(`-  ${session.message} .`);
         }
 
         if (!response.ok) {

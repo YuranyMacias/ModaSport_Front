@@ -343,7 +343,8 @@ const createActionsOrderBtns = () => {
         btnDetail.addEventListener('click', () => {
             let objectId = btnDetail.getAttribute('data-id');
             console.log(objectId)
-            // detailsProduct(objectId);
+            const urlInvoice = `/invoice.html?idOrder=${objectId}`;
+            window.location.href = urlInvoice;
         })
     })
 
@@ -388,16 +389,10 @@ const createDataTable = () => {
                         <td>${order.total}</td>
                         <td>${order.date}</td>
                         <td>
-                            <button  class="btn btn-warning btn-sm btnDetails" data-bs-toggle="modal"
+                            <button  class="btn btn-warning btn-sm btnDetails" data-bs-toggle="modal" id="btnDetailsOrder"
                             data-bs-target="#detailsModal" title="Ver detalles pedido" data-id="${order._id}">
                                 <i class="fa-solid fa-pen-to-square m-1"></i>
                                 Ver detalles
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger btn-sm btnEliminar" title="Eliminar pedido"  data-id="${order._id}">
-                                <i class="fa-solid fa-trash m-1"></i>
-                                Eliminar
                             </button>
                         </td>
                     </tr>`;
